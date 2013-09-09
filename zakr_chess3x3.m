@@ -2,7 +2,7 @@ function zakr_chess3x3(r)
 % r-ссылка на РНКП
 % Дано: Робот в произвольной точке поля
 % Рез: Робот закрасил все клетки поля в шахматном порядке
-%      (начиная с левого нижнего угла)
+%      (начиная с левого нижнего угла) клетками 3х3.
 
 % - - - Устанавливаем робота в левый нижний угол - - - %
 starter(r)
@@ -60,12 +60,8 @@ end
         if ~ r.is_bord('o')
         r.step('o')
         end
-      end
-      
-      if ~ r.is_bord('o') || r.is_bord('o')
+        if r.is_bord('o')
         r.mark
-        if ~ r.is_bord('o')
-        r.step('o')
         end
       end
       
@@ -74,6 +70,19 @@ end
         if ~ r.is_bord('o')
         r.step('o')
         end
+        if r.is_bord('o')
+        r.mark
+        end
+      end
+      
+      if ~ r.is_bord('o') || r.is_bord('o')
+        r.mark
+        if ~ r.is_bord('o')
+        r.step('o')
+        end
+        if r.is_bord('o')
+        r.mark
+        end
       end
       
       if ~ r.is_bord('o') || r.is_bord('o')
@@ -83,9 +92,6 @@ end
       end
       
       if ~ r.is_bord('o') || r.is_bord('o')
-                if r.is_bord('o')
-        r.mark
-      end
         if ~ r.is_bord('o')
         r.step('o')
         end

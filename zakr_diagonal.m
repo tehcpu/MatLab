@@ -1,38 +1,42 @@
 function zakr_diagonal(r)
 % r-ссылка на РНКП
-% Дано: Робот в произвольной точке поля
-% Рез: Робот закрасил клетки поля в шахматном порядке и в последней клетке.
-starter(r)
+% Дано: Робот в произвольной точке поля.
+% Рез: Робот закрасил косой крест.
 
-zakr_diag(r,'w')
+% Закрашиваем диагональ на юго-запад.
+zakr_diag(r,'s', 'w')
+nazad_po_zakr(r, 'n', 'o')
+
+% Закрашиваем диагональ на юго-восток.
+zakr_diag(r,'s', 'o')
+nazad_po_zakr(r, 'n', 'w')
+
+% Закрашиваем диагональ на северо-запад.
+zakr_diag(r,'n', 'w')
+nazad_po_zakr(r, 's', 'o')
+
+% Закрашиваем диагональ на северо-восток.
+zakr_diag(r,'n', 'o')
+nazad_po_zakr(r, 's', 'w')
+
+% Закрашиваем начальную клетку.
 r.mark
 
-to_top(r)
-
-zakr_diag(r,'o')
-r.mark
-
-function zakr_diag(r, side)
-while (~ r.is_bord(side) && ~ r.is_bord('s'))
+function zakr_diag(r, side_vert, side_hor)
+while (~ r.is_bord(side_vert) && ~ r.is_bord(side_hor))
+    
+    r.step(side_vert)
+    r.step(side_hor)
     r.mark
-    r.step(side)
-    r.step('s')
+    
+    if r.is_bord(side_vert) || r.is_bord(side_hor)
+       r.mark
+    end
+    
 end
 
-function starter(r)
-while ~ r.is_bord('n')
-    r.step('n')
-end 
-while ~ r.is_bord('o')
-    r.step('o')
-end 
-
-function to_top(r)
-while ~ r.is_bord('n')
-    r.step('n')
-end 
-%
-%function nazad_po_zakr(r, side)
-%while r.is_mark
-%    r.step(side)
-%end
+function nazad_po_zakr(r, side_vert, side_hor)
+while r.is_mark==1
+    r.step(side_vert)
+    r.step(side_hor)
+end
