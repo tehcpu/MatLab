@@ -17,5 +17,5 @@ for i=1:rows
         end
      end
 end
-el
+el(2:1)
 end
