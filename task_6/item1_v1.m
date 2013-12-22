@@ -7,7 +7,7 @@ x = []; % массив с результатами
 % Задаем цикл для всей строки
 for i=1:length(string)
 % Если встречается пробел или знак пунктуации
-if string(i) == ' ' || string(i) == ',' || string(i) == ';' || string(i) == ':' || string(i) == '-' || string(i) == '(' || string(i) == ')'
+if string(i) == ' ' || string(i) == ',' || string(i) == ';' || string(i) == ':' || string(i) == '-' || string(i) == '(' || string(i) == ')' || string(i) == '"'
     % и он не множественный
     if string(i-1) ~= '.' && string(i-1) ~= '!' && string(i-1) ~= '?'
     if f == 0

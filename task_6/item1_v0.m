@@ -1,45 +1,43 @@
-function item1_v0(string)
-% »нициализируем массивы дл€ символов разделени€ слов ..
-%words = strvcat(' ', ',', ';', ':', '-', '"', '(', ')');
-% .. и предложений.
-%sents = strvcat('.', '?', '!', '...');
+function o=item1_v0(string)
+% «амен€ем все знаки препинани€ на пробелы.
+string = strrep(string, ',', ' ');
+string = strrep(string, ';', ' ');
+string = strrep(string, ':', ' ');
+string = strrep(string, '-', ' ');
+string = strrep(string, '(', ' ');
+string = strrep(string, ')', ' ');
+string = strrep(string, '"', ' ');
 
-% “еперь уберем из строки все двойные пробелы и табул€ции
-strrep(string, '	', ''); 
-strrep(string, '  ', '');
+% «амен€ем все множественные пробелы на одинарный пробел.
+string = strrep(string, '  ', ' ');
+string = strrep(string, '   ', ' ');
+string = strrep(string, '    ', ' ');
+string = strrep(string, '     ', ' '); % на вс€кий случай.
 
-% Ќайдем позиции всех пробелов
-words = strfind(string,' ')
+% «амен€ем все знаки препинани€ на точки.
+string = strrep(string, '!', '.');
+string = strrep(string, '?', '.');
+string = strrep(string, '...', '.');
 
-% » позиции концов предложений
-questions = strfind(string,'?');
-exclamation = strfind(string,'!');
-threedots = strfind(string,'...');
-dot = strfind(string,'.');
-ends = [questions, exclamation, threedots, dot]
-%words_arr(.:.) = strcat(string(1:3));
+% ”бираем лишние пробелы до точек и после точек
+string = strrep(string, ' . ', '.');
+string = strrep(string, '. ', '.');
+string = strrep(string, ' .', '.');
 
-s = 0;
-w = 0;
-l = 0;
-f = 0;
-x = [];
-for i=1:length(string)
-if string(i) == ' ' || string(i) == ',' || string(i) == ';' || string(i) == ':' || string(i) == '-' || string(i) == '(' || string(i) == ')'
-    if f == 0
-        f = 1;
-        w = w + 1
-    end
-else
-    f = 0;
-    l = l + 1;
+% –азбиваем текст на предложени€ и пишем их в массив (1 - ый проход)
+array = strsplit(string, '.');
+
+% »нициализируем массив
+num = [];
+
+% ƒл€ каждого элемента массива считаем количество пробелов
+% и прибавл€ем единицу (провое слово). 2 - ой проход.
+
+for i=1:length(array)
+    words = sum(array{i} == ' ') + 1; % количсетво слов
+    chars = length(array{i}) - sum(array{i} == ' '); % количество символов
+    num(end+1) = chars/words; % пишем в массив среднюю длину слов этого предложени€
 end
-if string(i) == '.' || string(i) == '!' || string(i) == '?'
-    s = s + 1;
-    x(end+1) = w
-    w = 0;
-    l = 0;
-    f = 0;
-end
-i
+% Ќаходим макимальный(ые) элемент(ы) массива - номер(а) предложени€(ий) с максимальной средней длиной слов
+o=find(num==max(num));
 end
