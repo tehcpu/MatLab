@@ -3,63 +3,55 @@ function graph()
 firstPoint = input('Начальная точка: ');
 lastPoint = input('Конечная точка: ');
 numPoints = input('Количество промежуточных точек: ');
+members = input('Количество членов для суммы: ');
 
 % Считаем интервал промежуточных точек
-interval = (lastPoint-firstPoint)/numPoints;
+interval = abs(lastPoint-firstPoint)/numPoints;
 
 % Инициализируем объект класса Pero
-p = Pero(firstPoint, f(firstPoint,numPoints));
+p = Pero(firstPoint,f(firstPoint,members));
 
 % И инициализируем переменные для пункта (1.3)
 ySumm = 0;
 % Дополняем массив с точками
 for i = firstPoint:interval:lastPoint
-   cy = f(i,numPoints); % Вводим переменную, чтобы не считать
+  present = f(i,members); % Вводим переменную, чтобы не считать
                         % несколько раз одно и то же.
-   
-   % (1.4) - снова просчитываем пердыдущее значение функции ..
+   % (1.4) - снова просчитываем предыдущее значение функции ..
+   % если это не первый проход, то значит было предыдущее значение в этом
+   % отрезке
+   if i~=firstPoint
    iPrev = i-interval;
-   cyPrev = f(iPrev,numPoints);
+   last = f(iPrev,members);
    % .. и сравниваем знаки соседних точек. Если знаки различаются,
    % то на данном сегменте функция пересекает ось 0X.
-   if sign(cy) ~= sign(cyPrev)
-     % Для нахождения ~ значения Х воспользуемся алгоритмом
-     % решения ур - ия методом деления отрезка пополам.
-     % Сначала, делаем проверку на локальность отрезка
-     if f(iPrev,numPoints) * f(i,numPoints) >= 0
-         error('Отрезок не является локальным!')
-     end
-     % Применям алгоритм
-     curr = i;
-     while curr-(iPrev) > 0.0001    % Эпселен. Для точности можно 
-                                 % указать значение по - меньше.
-         t = (iPrev + curr)/2;
-         if f(t, numPoints) * f(iPrev,numPoints) > 0
-             iPrev = t;
-         else
-             curr = t;
-         end
-     end 
-     markz(t, i, cy, p);
-   else
-     p.punct(i, cy);
+ if present*last <= 0
+     %сработало условие различия знаков, либо одно из значений
+     %равно нулю, значит  есть точка пересечения,найдем ёё ( подобие
+     %треугольников)...вообще есть вариант, что оба значения равны нулю,
+     %тогда функция имеет бесконечное число точек пересечения - отбрасываем
+     %этот вариант, с ним неинтересно жить))
+       z=i-interval*abs(present)/(abs(last)+abs(present));
+      markz(z,i,present,p); 
+ end
    end
-   % (1.3) - считаем сумму координат x y
-   ySumm = ySumm + cy;
+     p.punct(i,present);
+     p.draw
+% (1.3) - считаем сумму координат по  y
+   ySumm = ySumm + present;
 end
 % Строим график
 % Задаем единичные векторы на обоих осях равными ..
 axis('equal');
-p.draw
-
 % (1.3) - добавляем линию
-% Сначала устанавливаем белый цвет линии ..
-p.set('lineColor' , 'w');
-% Переходим в точку начала линии ..
+% Переходим в точку начала линии(справа) ..
 p.punct(lastPoint, ySumm/numPoints);
-p.draw
-% .. и подрубаем цвет обратно
-p.set('lineColor' , 'b');
+% Сначала устанавливаем белый цвет линии ..
+ p.set('lineColor' , 'w');
+ p.draw
 p.punct(firstPoint, ySumm/numPoints);
-% Строим линию
-p.draw
+ % .. и подрубаем цвет обратно
+ p.set('lineColor' , 'b');
+ % Строим линию
+ p.draw
+end

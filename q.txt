@@ -1,4 +1,0 @@
--- 2 (with e < 0.4 its crazy!)
--- 4 item1_v1 ???
--- 5.1, 5.2, 5.3, 5.4 ??
--- 6 item1_v0 (two-stepping [easy??!]) ???

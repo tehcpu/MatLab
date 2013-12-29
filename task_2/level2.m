@@ -6,15 +6,16 @@ partsum=input('Номер частичной суммы: ');
 numerator=2;
 denominator=6;
 % Начальное значение
-s=(numerator/denominator)*x;
-y=s;
+% Начальное значение
+s=x-(numerator/denominator)*x^2;
+y=-(numerator/denominator)*x^2;
 % Номер частичной суммы должен быть обязательно больше единицы!
 if partsum>1
     % Цикл для подсчета частичной суммы данного ряда
-    for i=1:partsum-1
+    for i=3:partsum-1
         % C Каждым шагом увеличиваем числитель и 
         % знаменатель на 3 (в соответсвии с формулой)
-        numerator=denominator+3;
+        numerator=numerator+3;
         denominator=denominator+3;
         % Собираем формулу целиком
         y=-y*x*numerator/denominator;

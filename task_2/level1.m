@@ -6,13 +6,13 @@ accuracy=input('Погрешность: ');
 numerator=2;
 denominator=6;
 % Начальное значение
-s=(numerator/denominator)*x;
-y=s;
+s=x-(numerator/denominator)*x^2;
+y=-(numerator/denominator)*x^2;
 % Считаем сумму ряда, пока погрешность меньше значения функции
-while accuracy<abs(y)
+while accuracy<=abs(y)
     % C Каждым шагом увеличиваем числитель и 
     % знаменатель на 3 (в соответсвии с формулой)
-    numerator=denominator+3;
+    numerator=numerator+3;
     denominator=denominator+3;
     % Собираем формулу целиком
     y=-y*x*numerator/denominator;

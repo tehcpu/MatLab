@@ -17,3 +17,4 @@ p.draw;
 kvadrat(p);
 p.draw;
 p.punct(x, y);
+end

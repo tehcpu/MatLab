@@ -13,12 +13,18 @@ axis('equal');
 p.set('lineColor' , 'g');
 p.draw
 p.vector(0, -0.025);
+p.set('lineColor' , 'w');
+p.draw
 p.vector(-0.025, 0);
 p.vector(0, 0.05);
 p.vector(0.05, 0);
 p.vector(0, -0.05);
 p.vector(-0.025, 0);
+p.set('lineColor' , 'g');
+p.draw
 p.vector(0, 0.025);
+p.set('lineColor' , 'w');
 p.draw
 p.set('lineColor' , 'b');
 p.draw
+end

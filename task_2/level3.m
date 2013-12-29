@@ -6,7 +6,7 @@ for i=0:3
     n=2^i; % Текущее значение n
     % Получаем значения функции для x на интервале
     % от 0 до 1 с шагом 0.05 (1/20).
-    for x=0:0.05:1
+    for x=0:0.05:0.9
         s1=level1_new(x);   % Первый график
         s2=level2_new(x,n); % Второй график
         % Если x = 0, => это первая точка, а значит,
@@ -29,17 +29,18 @@ end
 
 %Вычисление суммы с погрешностью
 function s=level1_new(x)
-accuracy=0.4; % Задаем маленькую погрешность % WTF 0_o 
+accuracy=0.01; % Задаем маленькую погрешность % WTF 0_o 
 % Считаем числитель и знаменатель для первого члена
 numerator=2;
 denominator=6;
 % Начальное значение
-s=(numerator/denominator)*x;
-y=s;
+% Начальное значение
+s=x-(numerator/denominator)*x^2;
+y=-(numerator/denominator)*x^2;
 while accuracy<=abs(y)
     % C Каждым шагом увеличиваем числитель и 
     % знаменатель на 3 (в соответсвии с формулой)
-    numerator=denominator+3;
+    numerator=numerator+3;
     denominator=denominator+3;
     % Собираем формулу целиком
     y=-y*x*numerator/denominator;
@@ -55,15 +56,16 @@ function s=level2_new(x,n)
 numerator=2;
 denominator=6;
 % Начальное значение
-s=(numerator/denominator)*x;
-y=s;
+% Начальное значение
+s=x-(numerator/denominator)*x^2;
+y=-(numerator/denominator)*x^2;
 % Номер частичной суммы должен быть обязательно больше единицы!
 if n>1
     % Цикл для подсчета частичной суммы данного ряда
-    for i=1:n-1
+    for i=3:n-1
         % C Каждым шагом увеличиваем числитель и 
         % знаменатель на 3 (в соответсвии с формулой)
-        numerator=denominator+3;
+        numerator=numerator+3;
         denominator=denominator+3;
         % Собираем формулу целиком
         y=-y*x*numerator/denominator;

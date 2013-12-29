@@ -6,9 +6,8 @@ function y=f(x, n)
 y = 0;
 for i=1:n
 %ИНВ.: На каждом шаге y=сумма(f1(x):fk(x))
-y=y+fk(x, n);
+y=y+fk(x,i);
 end
-
 y=sqrt(n*pi)/50*y-0.8;
 end
 
@@ -17,5 +16,5 @@ end
 % в сумме произведений
 %Рез.: y - значение формулы для заданных x и n 
 function y=fk(x, k)
-y=sin(x*k/2) - sin((x*k-1/2))/exp(x-1/k);
+y=(sin((x*k)/2) + sin((x*k-1)/2))/exp(x-1/k);
 end
