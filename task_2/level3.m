@@ -29,24 +29,23 @@ end
 
 %Вычисление суммы с погрешностью
 function s=level1_new(x)
-accuracy=0.01; % Задаем маленькую погрешность % WTF 0_o 
+accuracy=0.01; % Задаем маленькую погрешность 
 % Считаем числитель и знаменатель для первого члена
 numerator=2;
 denominator=6;
-% Начальное значение
 % Начальное значение
 s=x-(numerator/denominator)*x^2;
 y=-(numerator/denominator)*x^2;
 while accuracy<=abs(y)
     % C Каждым шагом увеличиваем числитель и 
-    % знаменатель на 3 (в соответсвии с формулой)
+    % знаменатель на 3 (в соответствии с формулой)
     numerator=numerator+3;
     denominator=denominator+3;
     % Собираем формулу целиком
     y=-y*x*numerator/denominator;
     % И суммируем получившееся значение с суммой ряда
     s=s+y;
-    abs(s)
+    abs(s);
 end
 end
 
@@ -56,7 +55,6 @@ function s=level2_new(x,n)
 numerator=2;
 denominator=6;
 % Начальное значение
-% Начальное значение
 s=x-(numerator/denominator)*x^2;
 y=-(numerator/denominator)*x^2;
 % Номер частичной суммы должен быть обязательно больше единицы!
@@ -64,7 +62,7 @@ if n>1
     % Цикл для подсчета частичной суммы данного ряда
     for i=3:n-1
         % C Каждым шагом увеличиваем числитель и 
-        % знаменатель на 3 (в соответсвии с формулой)
+        % знаменатель на 3 (в соответствии с формулой)
         numerator=numerator+3;
         denominator=denominator+3;
         % Собираем формулу целиком
